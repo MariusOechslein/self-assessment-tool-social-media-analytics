@@ -1,0 +1,14 @@
+<h3>Fragebogen</h3>
+
+<div *ngFor="let question of this.displayedQuestions">
+  {{question}}
+</div>
+<br>
+<div style="display: block">
+  <ion-button (click)="getPreviousQuestions()" disabled="{{this.pageNumber == 0}}">Zurück</ion-button>
+  <ion-button (click)="getNextQuestions()" *ngIf="!(this.pageNumber+1 > this.questions.length / this.questionsPerPage)">Weiter</ion-button>
+  <ion-button routerLink="/results" *ngIf="this.pageNumber+1 > this.questions.length / this.questionsPerPage">Zur Auswertung</ion-button>
+</div>
+<br>
+<br>
+<ion-button routerLink="/greetings">Zurück</ion-button>
