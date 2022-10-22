@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Answer, AppComponent, Question} from "../app.component";
 
 @Component({
   selector: 'app-questions',
@@ -7,27 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class QuestionsComponent implements OnInit {
 
-  questionsPerPage: number = 10;
+  questionsPerPage: number = 2;
   pageNumber: number = 0;
-  questions: string[] = ["Frage 1", "Liebt mein bubs mich?", "Frage 3", "Frage 4", "Frage 5", "6", "7", "8", "9", "10", "11", "Frage 12"];
-  displayedQuestions: string[] = [];
+  questions: Question[] = [];
+  displayedQuestions: Question[] = [];
 
   constructor() {
-    this.getInitialQuestions();
   }
 
   ngOnInit(): void {
-  }
-
-  getInitialQuestions() {
-    let result: string[] = [];
-    let startPosition: number = this.pageNumber * this.questionsPerPage;
-    let endPosition: number = startPosition + this.questionsPerPage;
-    for (let i = startPosition; i < endPosition; i++) {
-      result.push(this.questions[i]);
-    }
-
-    this.displayedQuestions.push(...result);
+    this.questions = AppComponent.questions;
+    this.displayedQuestions.push(...this.getQuestions());
   }
 
   getNextQuestions() {
@@ -49,13 +40,29 @@ export class QuestionsComponent implements OnInit {
   }
 
   getQuestions() {
-    let result: string[] = [];
+    // save state of checkboxes
+    for (let question of this.questions) {
+      for (let answer of question.answers) {
+        answer.initialChecked = answer.checked;
+      }
+    }
+
+    let result: Question[] = [];
     let startPosition: number = this.pageNumber * this.questionsPerPage;
     let endPosition: number = startPosition + this.questionsPerPage;
     for (let i = startPosition; i < endPosition; i++) {
+      // if outside of bounds -> break;
+      if (i >= this.questions.length) {
+        break;
+      }
       result.push(this.questions[i]);
     }
     return result;
   }
 
+  handleCheckbox(event: any, answer: Answer) {
+    // rerender problem. checkbox wird erst rerendered wenn ich das zweite mal draufdrücke
+    answer.checked = !event.checked;
+    console.log(answer.checked);
+  }
 }

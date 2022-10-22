@@ -8,8 +8,23 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'self-assessment-tool';
 
-  public stateEnum = stateEnum;
-  public state: stateEnum = stateEnum.GREETINGS;
+  // global declaration of questions to be able to use it every component
+  public static questions: Question[] = [
+    { title: "Frage 1", answers: [ { title: "Antwort 1", initialChecked: false, checked: true }, { title: "Antwort 2", initialChecked: false, checked: false }, { title: "Antwort 3", initialChecked: false, checked: true }]},
+    { title: "Frage 2", answers: [ { title: "Antwort 1", initialChecked: false, checked: false }, { title: "Antwort 2", initialChecked: false, checked: false }, { title: "Antwort 3", initialChecked: false, checked: true }]},
+    { title: "Frage 3", answers: [ { title: "Antwort 1", initialChecked: false, checked: true }, { title: "Antwort 2", initialChecked: false, checked: true }, { title: "Antwort 3", initialChecked: false, checked: true }]},
+  ];
+
+  state: Question[] = [];
 }
 
-export enum stateEnum {"GREETINGS", "QUESTIONS", "RESULTS"}
+export interface Question {
+  title: string;
+  answers: Answer[];
+}
+
+export interface Answer {
+  title: string;
+  initialChecked: boolean;
+  checked: boolean;
+}

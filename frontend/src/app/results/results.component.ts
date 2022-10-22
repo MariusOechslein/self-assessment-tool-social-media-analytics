@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AppComponent, Question} from "../app.component";
 
 @Component({
   selector: 'app-results',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ResultsComponent implements OnInit {
 
+  results: Question[] = [];
+
   constructor() { }
 
   ngOnInit(): void {
+    this.results = AppComponent.questions;
   }
 
 }

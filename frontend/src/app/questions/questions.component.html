@@ -1,8 +1,15 @@
-<h3>Fragebogen</h3>
+<h2>Fragebogen</h2>
 
 <div *ngFor="let question of this.displayedQuestions">
-  {{question}}
+  <h3>{{question.title}}</h3>
+  <p *ngFor="let answer of question.answers; let i = index">
+    <ion-item>
+      <ion-checkbox type="checkbox" (click)="handleCheckbox($event.target, answer)" slot="start" checked="{{answer.initialChecked}}"></ion-checkbox>
+      <ion-label>{{answer.title}}</ion-label>
+    </ion-item>
+  </p>
 </div>
+
 <br>
 <div style="display: block">
   <ion-button (click)="getPreviousQuestions()" disabled="{{this.pageNumber == 0}}">Zurück</ion-button>
@@ -11,4 +18,4 @@
 </div>
 <br>
 <br>
-<ion-button routerLink="/greetings">Zurück</ion-button>
+<ion-button routerLink="/greetings">Zurück zum Start</ion-button>
