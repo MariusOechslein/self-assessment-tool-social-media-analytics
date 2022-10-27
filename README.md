@@ -10,3 +10,8 @@ IT Projekt: Self-Assessment-Tool für Social Media Analytics
 - Intstall Dependencies: npm install
 - Run App: ng serve 
 - Then App is available on: http://localhost:4200/greetings
+
+### Struktur:
+- 3 Seiten: greetings, questions und results - jeweils eigene Komponente, jede Komponente hat die Logik in .ts und die Darstellung in .html
+- Fragen definiert in src/app/app.component.ts
+- Reifegrade definiert in src/app/results/results.component.ts
