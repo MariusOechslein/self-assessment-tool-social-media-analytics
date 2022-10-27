@@ -1,11 +1,29 @@
-<p>Das ist Ihre Auswertung!</p>
+<h1>Das ist Ihre Auswertung!</h1>
 
-<div *ngFor="let question of this.results">
+<div *ngFor="let question of this.questions">
   <h3>{{question.title}}</h3>
-  <div *ngFor="let answer of question.answers">
-    {{answer.title}}: {{answer.checked}}
+  <div *ngIf="question.type === 0"> <!-- Multiple Choice Question -->
+    <div *ngFor="let answer of question.answers">
+      <div *ngIf="answer.checked">
+        {{answer.title}} - Punkte: {{answer.points}}
+      </div>
+    </div>
+  </div>
+  <div *ngIf="question.type === 1"> <!-- Single Choice Question -->
+    <div>{{question.answers[question.singleChoiceAnswer? question.singleChoiceAnswer : 0].title}}
+      - Punkte: {{question.answers[question.singleChoiceAnswer? question.singleChoiceAnswer : 0].points}}</div>
   </div>
 </div>
+<br>
+
+<!-- Reifegrad Prozesse -->
+<div *ngIf="this.skillLevelProzesse">
+  <h1>Dein SkillLevel: {{this.skillLevelProzesse.level}}/{{this.reifegradeProzesse.length-1}}</h1>
+  <h3>{{this.skillLevelProzesse.title}}</h3>
+  <p>{{this.skillLevelProzesse.text}}</p>
+</div>
+<!-- TODO: Reifegrad Technologie -->
+<!-- TODO: Reifegrad Organisation -->
 
 <br>
 <br>

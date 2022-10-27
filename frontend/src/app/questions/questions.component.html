@@ -1,20 +1,35 @@
 <h2>Fragebogen</h2>
 
-<div *ngFor="let question of this.displayedQuestions">
+<div *ngFor="let question of this.displayedQuestions; let n = index">
+  <h1 *ngIf="n == 0 || this.displayedQuestions[n].group != this.displayedQuestions[n-1].group">
+    {{question.group}}
+  </h1>
   <h3>{{question.title}}</h3>
-  <p *ngFor="let answer of question.answers; let i = index">
-    <ion-item>
-      <ion-checkbox type="checkbox" (click)="handleCheckbox($event.target, answer)" slot="start" checked="{{answer.initialChecked}}"></ion-checkbox>
-      <ion-label>{{answer.title}}</ion-label>
-    </ion-item>
-  </p>
+  <div *ngIf="question.type === 0"> <!-- Multiple Choice -->
+    <p *ngFor="let answer of question.answers; let i = index">
+      <ion-item>
+        <ion-checkbox type="checkbox" (click)="handleCheckbox($event.target, answer)" slot="start" checked="{{answer.initialChecked}}"></ion-checkbox>
+        <ion-label>{{answer.title}}</ion-label>
+      </ion-item>
+    </p>
+  </div>
+  <div *ngIf="question.type === 1"> <!-- Single Choice -->
+    <ion-list>
+      <ion-radio-group value="{{question.singleChoiceInitialAnswer}}">
+        <ion-item *ngFor="let answer of question.answers; let i = index">
+          <ion-label>{{answer.title}}</ion-label>
+          <ion-radio slot="start" value="{{i}}" (click)="handleRadio(question, i)"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </ion-list>
+  </div>
 </div>
 
 <br>
 <div style="display: block">
   <ion-button (click)="getPreviousQuestions()" disabled="{{this.pageNumber == 0}}">Zurück</ion-button>
-  <ion-button (click)="getNextQuestions()" *ngIf="!(this.pageNumber+1 > this.questions.length / this.questionsPerPage)">Weiter</ion-button>
-  <ion-button routerLink="/results" *ngIf="this.pageNumber+1 > this.questions.length / this.questionsPerPage">Zur Auswertung</ion-button>
+  <ion-button (click)="getNextQuestions()" *ngIf="!(this.pageNumber+1 >= this.questions.length / this.questionsPerPage)">Weiter</ion-button>
+  <ion-button routerLink="/results" *ngIf="this.pageNumber+1 >= this.questions.length / this.questionsPerPage">Zur Auswertung</ion-button>
 </div>
 <br>
 <br>
