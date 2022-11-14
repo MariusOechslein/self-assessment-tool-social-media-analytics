@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AppComponent, MultipleChoiceQuestion, QuestionType, SingleChoiceQuestion} from "../app.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-results',
@@ -21,11 +22,36 @@ export class ResultsComponent implements OnInit {
   // TODO: reifegradeTechnologie
   // TODO: reifegradeOrganisation
 
-  constructor() { }
+  constructor(public router: Router) { }
 
   ngOnInit(): void {
-    this.questions = AppComponent.questions;
+    this.questions = this.getQuestions();
     this.skillLevelProzesse = this.calcSkillLevelProzesse();
+  }
+
+  getQuestions(): (SingleChoiceQuestion | MultipleChoiceQuestion)[] {
+    let output: (SingleChoiceQuestion | MultipleChoiceQuestion)[] = [];
+
+    let questions = AppComponent.questionsEasy;
+    if (this.router.url.includes("hard")) {
+      questions = AppComponent.questionsHard;
+    }
+
+    for (let question of questions) {
+      // add question
+      output.push(question);
+      // add subquestions of question too
+      for (let answer of question.answers) {
+        if (answer.subquestions !== undefined) {
+          for (let subquestion of answer.subquestions) {
+            subquestion.showSubquestion = false;
+            output.push(subquestion);
+          }
+        }
+      }
+    }
+
+    return output;
   }
 
   calcSkillLevelProzesse(): Reifegrad {

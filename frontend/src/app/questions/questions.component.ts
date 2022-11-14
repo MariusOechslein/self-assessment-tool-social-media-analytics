@@ -1,5 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {Answer, AppComponent, MultipleChoiceQuestion, QuestionType, SingleChoiceQuestion} from "../app.component";
+import {
+  Answer,
+  AppComponent,
+  Difficulty,
+  MultipleChoiceQuestion,
+  QuestionType,
+  SingleChoiceQuestion
+} from "../app.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-questions',
@@ -12,12 +20,22 @@ export class QuestionsComponent implements OnInit {
   pageNumber: number = 0;
   questions: (MultipleChoiceQuestion | SingleChoiceQuestion)[] = [];
   displayedQuestions: (MultipleChoiceQuestion | SingleChoiceQuestion)[] = [];
+  subquestionIdentifier: string = " - Unterfrage";
+  difficulty: Difficulty = Difficulty.EASY;
 
-  constructor() {
+  constructor(public router: Router) {
   }
 
   ngOnInit(): void {
-    this.questions = AppComponent.questions;
+    if (this.router.url.includes("hard")) {
+      this.difficulty = Difficulty.HARD;
+    }
+
+    if (this.difficulty == Difficulty.EASY) {
+      this.questions = AppComponent.questionsEasy;
+    } else {
+      this.questions = AppComponent.questionsHard;
+    }
     this.updateDisplay();
   }
 
@@ -43,6 +61,18 @@ export class QuestionsComponent implements OnInit {
     for (let question of this.questions) {
       for (let answer of question.answers) {
         answer.initialChecked = answer.checked;
+
+        // check subquestions too
+        if (answer.subquestions !== undefined) {
+          for (let subquestion of answer.subquestions) {
+            for (let subquestionAnswer of subquestion.answers) {
+              subquestionAnswer.initialChecked = subquestionAnswer.checked;
+            }
+            if (subquestion.type == QuestionType.singleChoice) {
+              subquestion.singleChoiceInitialAnswer = subquestion.singleChoiceAnswer;
+            }
+          }
+        }
       }
       if (question.type == QuestionType.singleChoice) {
         question.singleChoiceInitialAnswer = question.singleChoiceAnswer;
@@ -57,12 +87,29 @@ export class QuestionsComponent implements OnInit {
       if (i >= this.questions.length) {
         break;
       }
+
+      // add question
       result.push(this.questions[i]);
+      // add subquestions of question too
+      for (let answer of this.questions[i].answers) {
+        if (answer.subquestions !== undefined) {
+          for (let subquestion of answer.subquestions) {
+            subquestion.showSubquestion = false;
+            subquestion.title += this.subquestionIdentifier;
+            result.push(subquestion);
+          }
+        }
+      }
     }
     return result;
   }
 
   handleCheckbox(event: any, answer: Answer) {
+    if (answer.subquestions !== undefined) {
+      for (let subquestion of answer.subquestions) {
+        subquestion.showSubquestion = !subquestion.showSubquestion;
+      }
+    }
     answer.checked = !event.checked;
   }
 

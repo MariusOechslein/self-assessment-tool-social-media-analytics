@@ -7,8 +7,10 @@ import {ResultsComponent} from "./results/results.component";
 const routes: Routes = [
   { path: '',   redirectTo: '/greetings', pathMatch: 'full' },
   { path: 'greetings', component: GreetingComponent },
-  { path: 'questions', component: QuestionsComponent },
-  { path: 'results', component: ResultsComponent }
+  { path: 'questions-easy', component: QuestionsComponent },
+  { path: 'questions-hard', component: QuestionsComponent },
+  { path: 'results-easy', component: ResultsComponent },
+  { path: 'results-hard', component: ResultsComponent }
 ];
 
 @NgModule({

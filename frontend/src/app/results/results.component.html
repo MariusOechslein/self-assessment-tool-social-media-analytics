@@ -27,4 +27,5 @@
 
 <br>
 <br>
-<ion-button routerLink="/questions">Zurück zum Fragebogen</ion-button>
+<ion-button routerLink="/questions-easy" *ngIf="this.router.url.includes('easy')">Zurück zum Fragebogen</ion-button>
+<ion-button routerLink="/questions-hard" *ngIf="this.router.url.includes('hard')">Zurück zum Fragebogen</ion-button>
