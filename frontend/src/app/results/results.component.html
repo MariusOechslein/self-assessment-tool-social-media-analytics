@@ -1,31 +1,74 @@
-<h1>Das ist Ihre Auswertung!</h1>
+<div class="results">
+<h1>Das sind Ihre Reifegrade!</h1>
 
-<div *ngFor="let question of this.questions">
-  <h3>{{question.title}}</h3>
-  <div *ngIf="question.type === 0"> <!-- Multiple Choice Question -->
-    <div *ngFor="let answer of question.answers">
-      <div *ngIf="answer.checked">
-        {{answer.title}} - Punkte: {{answer.points}}
+  <!-- TODO: Gesamter Reifegrad? -->
+
+  <!-- Prozesse Reifegrad -->
+  <div *ngIf="this.skillLevelProzesse">
+    <h1>Prozesse: {{this.skillLevelProzesse.level}}/{{this.reifegradeProzesse.length-1}}</h1>
+    <ion-progress-bar *ngIf="skillLevelProzesse.level == 1" type="determinate" style="--progress-background: #DE3700" value="{{this.skillLevelProzesse.level / 5}}"></ion-progress-bar>
+    <ion-progress-bar *ngIf="skillLevelProzesse.level == 2" type="determinate" style="--progress-background: #F58B00" value="{{this.skillLevelProzesse.level / 5}}"></ion-progress-bar>
+    <ion-progress-bar *ngIf="skillLevelProzesse.level == 3" type="determinate" style="--progress-background: yellow" value="{{this.skillLevelProzesse.level / 5}}"></ion-progress-bar>
+    <ion-progress-bar *ngIf="skillLevelProzesse.level == 4" type="determinate" style="--progress-background: #92E000" value="{{this.skillLevelProzesse.level / 5}}"></ion-progress-bar>
+    <ion-progress-bar *ngIf="skillLevelProzesse.level == 5" type="determinate" style="--progress-background: #2AA10F" value="{{this.skillLevelProzesse.level / 5}}"></ion-progress-bar>
+    <h3>{{this.skillLevelProzesse.title}}</h3>
+    <p>{{this.skillLevelProzesse.text}}</p>
+  </div>
+  <hr>
+
+  <!-- Technologie Reifegrad -->
+  <div *ngIf="this.skillLevelTechnologie">
+    <h1>Technologie: {{this.skillLevelTechnologie.level}}/{{this.reifegradeTechnologie.length-1}}</h1>
+    <ion-progress-bar *ngIf="skillLevelTechnologie.level == 1" type="determinate" style="--progress-background: #DE3700" value="{{this.skillLevelTechnologie.level / 5}}"></ion-progress-bar>
+    <ion-progress-bar *ngIf="skillLevelTechnologie.level == 2" type="determinate" style="--progress-background: #F58B00" value="{{this.skillLevelTechnologie.level / 5}}"></ion-progress-bar>
+    <ion-progress-bar *ngIf="skillLevelTechnologie.level == 3" type="determinate" style="--progress-background: yellow" value="{{this.skillLevelTechnologie.level / 5}}"></ion-progress-bar>
+    <ion-progress-bar *ngIf="skillLevelTechnologie.level == 4" type="determinate" style="--progress-background: #92E000" value="{{this.skillLevelTechnologie.level / 5}}"></ion-progress-bar>
+    <ion-progress-bar *ngIf="skillLevelTechnologie.level == 5" type="determinate" style="--progress-background: #2AA10F" value="{{this.skillLevelTechnologie.level / 5}}"></ion-progress-bar>
+    <h3>{{this.skillLevelTechnologie.title}}</h3>
+    <p>{{this.skillLevelTechnologie.text}}</p>
+  </div>
+  <hr>
+
+  <!-- Organisation Reifegrad -->
+  <div *ngIf="this.skillLevelOrganisation">
+    <h1>Organisation: {{this.skillLevelOrganisation.level}}/{{this.reifegradeOrganisation.length-1}}</h1>
+    <ion-progress-bar *ngIf="skillLevelOrganisation.level == 1" type="determinate" style="--progress-background: #DE3700" value="{{this.skillLevelOrganisation.level / 5}}"></ion-progress-bar>
+    <ion-progress-bar *ngIf="skillLevelOrganisation.level == 2" type="determinate" style="--progress-background: #F58B00" value="{{this.skillLevelOrganisation.level / 5}}"></ion-progress-bar>
+    <ion-progress-bar *ngIf="skillLevelOrganisation.level == 3" type="determinate" style="--progress-background: yellow" value="{{this.skillLevelOrganisation.level / 5}}"></ion-progress-bar>
+    <ion-progress-bar *ngIf="skillLevelOrganisation.level == 4" type="determinate" style="--progress-background: #92E000" value="{{this.skillLevelOrganisation.level / 5}}"></ion-progress-bar>
+    <ion-progress-bar *ngIf="skillLevelOrganisation.level == 5" type="determinate" style="--progress-background: #2AA10F" value="{{this.skillLevelOrganisation.level / 5}}"></ion-progress-bar>
+    <h3>{{this.skillLevelOrganisation.title}}</h3>
+    <p>{{this.skillLevelOrganisation.text}}</p>
+  </div>
+  <hr>
+  <!-- TODO: Reifegrad Prozesse -->
+  <!-- TODO: Reifegrad Technologie -->
+  <!-- TODO: Reifegrad Organisation -->
+</div>
+
+<hr>
+<hr>
+
+<div class="questions">
+  <h1>Beantwortete Fragen</h1>
+  <div *ngFor="let question of this.questions">
+    <h3>{{question.title}}</h3>
+    <div *ngIf="question.type === 0"> <!-- Multiple Choice Question -->
+      <div *ngFor="let answer of question.answers">
+        <div *ngIf="answer.checked">
+          {{answer.title}} - Punkte: {{answer.points}}
+        </div>
       </div>
     </div>
+    <div *ngIf="question.type === 1"> <!-- Single Choice Question -->
+      <div>{{question.answers[question.singleChoiceAnswer? question.singleChoiceAnswer : 0].title}}
+        - Punkte: {{question.answers[question.singleChoiceAnswer? question.singleChoiceAnswer : 0].points}}</div>
+    </div>
   </div>
-  <div *ngIf="question.type === 1"> <!-- Single Choice Question -->
-    <div>{{question.answers[question.singleChoiceAnswer? question.singleChoiceAnswer : 0].title}}
-      - Punkte: {{question.answers[question.singleChoiceAnswer? question.singleChoiceAnswer : 0].points}}</div>
-  </div>
-</div>
-<br>
+  <br>
 
-<!-- Reifegrad Prozesse -->
-<div *ngIf="this.skillLevelProzesse">
-  <h1>Dein SkillLevel: {{this.skillLevelProzesse.level}}/{{this.reifegradeProzesse.length-1}}</h1>
-  <h3>{{this.skillLevelProzesse.title}}</h3>
-  <p>{{this.skillLevelProzesse.text}}</p>
+  <br>
+  <br>
+  <ion-button routerLink="/questions-easy" *ngIf="this.router.url.includes('easy')">Zurück zum Fragebogen</ion-button>
+  <ion-button routerLink="/questions-hard" *ngIf="this.router.url.includes('hard')">Zurück zum Fragebogen</ion-button>
 </div>
-<!-- TODO: Reifegrad Technologie -->
-<!-- TODO: Reifegrad Organisation -->
-
-<br>
-<br>
-<ion-button routerLink="/questions-easy" *ngIf="this.router.url.includes('easy')">Zurück zum Fragebogen</ion-button>
-<ion-button routerLink="/questions-hard" *ngIf="this.router.url.includes('hard')">Zurück zum Fragebogen</ion-button>

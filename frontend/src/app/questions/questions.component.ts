@@ -58,6 +58,7 @@ export class QuestionsComponent implements OnInit {
 
   getQuestions() {
     // save state of checkboxes
+    // TODO: Hier gibt es noch Sachen zu tun, hauptsächlich für die states der Unterfragen - Soll ich das rauslassen ist die Frage?
     for (let question of this.questions) {
       for (let answer of question.answers) {
         answer.initialChecked = answer.checked;
@@ -95,7 +96,15 @@ export class QuestionsComponent implements OnInit {
         if (answer.subquestions !== undefined) {
           for (let subquestion of answer.subquestions) {
             subquestion.showSubquestion = false;
-            subquestion.title += this.subquestionIdentifier;
+            if (answer.checked) {
+              // only show subquestions if answer is checked
+              subquestion.showSubquestion = true;
+            }
+            /*
+            // check if subquestion has identifier in title, if not, add it
+            if (!subquestion.title.includes(this.subquestionIdentifier)) {
+              subquestion.title += this.subquestionIdentifier;
+            }*/
             result.push(subquestion);
           }
         }
@@ -114,6 +123,35 @@ export class QuestionsComponent implements OnInit {
   }
 
   handleRadio(question: SingleChoiceQuestion, index: number) {
+    // deselect first answer -> hide subquestions
+    if (question.singleChoiceAnswer != undefined) {
+      let answerBefore = question["answers"][question.singleChoiceAnswer];
+      if (answerBefore.subquestions !== undefined) {
+        for (let subquestion of answerBefore.subquestions) {
+          subquestion.showSubquestion = false;
+        }
+      }
+    }
+
     question.singleChoiceAnswer = index
+
+    // new selection -> show subquestions
+    let answerAfter = question["answers"][question.singleChoiceAnswer];
+    if (answerAfter.subquestions !== undefined) {
+      for (let subquestion of answerAfter.subquestions) {
+        subquestion.showSubquestion = true;
+      }
+    }
+  }
+
+  handleTextAreaEvent(index: number, event: any) {
+    // TODO: Bug if any input other than typing or normal backward
+    if (event.inputType == "insertText") {
+      this.displayedQuestions[index].text += event.data;
+    } else if (event.inputType == "deleteContentBackward") {
+      this.displayedQuestions[index].text = this.displayedQuestions[index].text?.slice(0,-1);
+    } else {
+      // TODO: handle other inputTypes
+    }
   }
 }

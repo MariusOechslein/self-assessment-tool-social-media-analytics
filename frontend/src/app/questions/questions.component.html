@@ -1,7 +1,8 @@
+<div class="body">
 <h2>Fragebogen</h2>
 
 <div *ngFor="let question of this.displayedQuestions; let n = index">
-  <div *ngIf="question.showSubquestion == undefined || question.showSubquestion == true"> <!-- also entweder keine Subquestion oder eine Subquestion die angezeigt werden soll -->
+  <div *ngIf="question.showSubquestion == undefined || question.showSubquestion == true" [ngStyle]="question.showSubquestion && {'margin-left': '50px'}"> <!-- also entweder keine Subquestion oder eine Subquestion die angezeigt werden soll -->
     <h1 *ngIf="n == 0 || this.displayedQuestions[n].group != this.displayedQuestions[n-1].group">
       {{question.group}}
     </h1>
@@ -17,7 +18,7 @@
         <ion-item>
           <ion-checkbox slot="start"></ion-checkbox>
           <ion-label>Andere: </ion-label>
-          <ion-textarea placeholder="Schreiben Sie hier..."></ion-textarea>
+          <ion-textarea value="{{question.text}}" (input)="handleTextAreaEvent(n, $event)" placeholder="Schreiben Sie hier..."></ion-textarea>
         </ion-item>
       </div>
     </div>
@@ -31,7 +32,7 @@
           <ion-item *ngIf="question.textField == true"> <!-- Text Field -->
             <ion-radio slot="start"></ion-radio>
             <ion-label>Andere: </ion-label>
-            <ion-textarea placeholder="Schreiben Sie hier..."></ion-textarea>
+            <ion-textarea value="{{question.text}}" (input)="handleTextAreaEvent(n, $event)" placeholder="Schreiben Sie hier..."></ion-textarea>
           </ion-item>
         </ion-radio-group>
       </ion-list>
@@ -49,3 +50,5 @@
 <br>
 <br>
 <ion-button routerLink="/greetings">Zurück zum Start</ion-button>
+
+</div>

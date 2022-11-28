@@ -1,0 +1,15 @@
+.results {
+  margin-left: 20px;
+}
+
+.questions {
+  margin-left: 20px;
+}
+
+ion-progress-bar {
+  --background: #DDDDDD;
+  height: 30px;
+  width: 300px;
+  border-radius: 10px;
+  margin: initial;
+}
