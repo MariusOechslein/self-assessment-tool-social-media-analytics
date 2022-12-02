@@ -8,6 +8,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./results.component.css']
 })
 export class ResultsComponent implements OnInit {
+  showAnsweredQuestions: boolean = false;
 
   questions: (MultipleChoiceQuestion | SingleChoiceQuestion)[] = [];
   skillLevelProzesse?: Reifegrad;

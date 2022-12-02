@@ -49,7 +49,12 @@
 <hr>
 <hr>
 
-<div class="questions">
+<br>
+<ion-button (click)="showAnsweredQuestions = true" *ngIf="!showAnsweredQuestions">Zeige die beantworteten Fragen</ion-button>
+<ion-button (click)="showAnsweredQuestions = false" *ngIf="showAnsweredQuestions">Verberge die beantworteten Fragen</ion-button>
+<br>
+
+<div *ngIf="showAnsweredQuestions" class="questions">
   <h1>Beantwortete Fragen</h1>
   <div *ngFor="let question of this.questions">
     <h3>{{question.title}}</h3>
@@ -66,9 +71,11 @@
     </div>
   </div>
   <br>
-
-  <br>
-  <br>
-  <ion-button routerLink="/questions-easy" *ngIf="this.router.url.includes('easy')">Zurück zum Fragebogen</ion-button>
-  <ion-button routerLink="/questions-hard" *ngIf="this.router.url.includes('hard')">Zurück zum Fragebogen</ion-button>
 </div>
+
+
+<br>
+<br>
+<ion-button routerLink="/questions-easy" *ngIf="this.router.url.includes('easy')">Zurück zum Fragebogen</ion-button>
+<ion-button routerLink="/questions-hard" *ngIf="this.router.url.includes('hard')">Zurück zum Fragebogen</ion-button>
+

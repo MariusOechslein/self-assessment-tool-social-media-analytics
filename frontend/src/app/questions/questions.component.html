@@ -1,5 +1,4 @@
 <div class="body">
-<h2>Fragebogen</h2>
 
 <div *ngFor="let question of this.displayedQuestions; let n = index">
   <div *ngIf="question.showSubquestion == undefined || question.showSubquestion == true" [ngStyle]="question.showSubquestion && {'margin-left': '50px'}"> <!-- also entweder keine Subquestion oder eine Subquestion die angezeigt werden soll -->
@@ -10,7 +9,7 @@
     <div *ngIf="question.type === 0"> <!-- Multiple Choice -->
       <p *ngFor="let answer of question.answers; let i = index">
         <ion-item>
-          <ion-checkbox (click)="handleCheckbox($event.target, answer)" slot="start" checked="{{answer.initialChecked}}"></ion-checkbox>
+          <ion-checkbox (click)="handleCheckbox($event.target, answer, question)" slot="start" checked="{{answer.initialChecked}}"></ion-checkbox>
           <ion-label>{{answer.title}}</ion-label>
         </ion-item>
       </p>
@@ -42,8 +41,12 @@
 
 <br>
 <div style="display: block">
+  <!-- Lösung mit questionsPerPage
   <ion-button (click)="getPreviousQuestions()" disabled="{{this.pageNumber == 0}}">Zurück</ion-button>
   <ion-button (click)="getNextQuestions()" *ngIf="!(this.pageNumber+1 >= this.questions.length / this.questionsPerPage)">Weiter</ion-button>
+  -->
+  <ion-button (click)="getPreviousQuestions()" disabled="{{this.groupPosition == 0}}">Zurück</ion-button>
+  <ion-button (click)="getNextQuestions()" *ngIf="(this.groupPosition < 2)">Weiter</ion-button>
   <ion-button routerLink="/results-easy" *ngIf="this.router.url.includes('easy') && this.pageNumber+1 >= this.questions.length / this.questionsPerPage">Zur Auswertung</ion-button>
   <ion-button routerLink="/results-hard" *ngIf="this.router.url.includes('hard') && this.pageNumber+1 >= this.questions.length / this.questionsPerPage">Zur Auswertung</ion-button>
 </div>

@@ -2,8 +2,15 @@
   text-align: center;
 }
 
-ion-button {
+ion-item {
+  width: 400px;
   display: block;
   margin: auto;
   width: 400px;
+}
+
+ion-button {
+  display: block;
+  margin: auto;
+  width: 500px;
 }
