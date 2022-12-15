@@ -6,39 +6,47 @@
   <!-- Prozesse Reifegrad -->
   <div *ngIf="this.skillLevelProzesse">
     <h1>Prozesse: {{this.skillLevelProzesse.level}}/{{this.reifegradeProzesse.length-1}}</h1>
+    <ion-progress-bar *ngIf="skillLevelProzesse.level == 0" type="determinate" style="--progress-background: #DE3700" value="{{this.skillLevelProzesse.level / 5}}"></ion-progress-bar>
     <ion-progress-bar *ngIf="skillLevelProzesse.level == 1" type="determinate" style="--progress-background: #DE3700" value="{{this.skillLevelProzesse.level / 5}}"></ion-progress-bar>
     <ion-progress-bar *ngIf="skillLevelProzesse.level == 2" type="determinate" style="--progress-background: #F58B00" value="{{this.skillLevelProzesse.level / 5}}"></ion-progress-bar>
     <ion-progress-bar *ngIf="skillLevelProzesse.level == 3" type="determinate" style="--progress-background: yellow" value="{{this.skillLevelProzesse.level / 5}}"></ion-progress-bar>
     <ion-progress-bar *ngIf="skillLevelProzesse.level == 4" type="determinate" style="--progress-background: #92E000" value="{{this.skillLevelProzesse.level / 5}}"></ion-progress-bar>
     <ion-progress-bar *ngIf="skillLevelProzesse.level == 5" type="determinate" style="--progress-background: #2AA10F" value="{{this.skillLevelProzesse.level / 5}}"></ion-progress-bar>
     <h3>{{this.skillLevelProzesse.title}}</h3>
-    <p>{{this.skillLevelProzesse.text}}</p>
+    <p>{{this.skillLevelProzesse.text.split("Verbesserungsvorschlag:")[0]}}</p>
+    <b>Verbesserungsvorschlag:</b>
+    <p>{{this.skillLevelProzesse.text.split("Verbesserungsvorschlag:")[1]}}</p>
   </div>
   <hr>
 
   <!-- Technologie Reifegrad -->
   <div *ngIf="this.skillLevelTechnologie">
     <h1>Technologie: {{this.skillLevelTechnologie.level}}/{{this.reifegradeTechnologie.length-1}}</h1>
-    <ion-progress-bar *ngIf="skillLevelTechnologie.level == 1" type="determinate" style="--progress-background: #DE3700" value="{{this.skillLevelTechnologie.level / 5}}"></ion-progress-bar>
-    <ion-progress-bar *ngIf="skillLevelTechnologie.level == 2" type="determinate" style="--progress-background: #F58B00" value="{{this.skillLevelTechnologie.level / 5}}"></ion-progress-bar>
-    <ion-progress-bar *ngIf="skillLevelTechnologie.level == 3" type="determinate" style="--progress-background: yellow" value="{{this.skillLevelTechnologie.level / 5}}"></ion-progress-bar>
-    <ion-progress-bar *ngIf="skillLevelTechnologie.level == 4" type="determinate" style="--progress-background: #92E000" value="{{this.skillLevelTechnologie.level / 5}}"></ion-progress-bar>
-    <ion-progress-bar *ngIf="skillLevelTechnologie.level == 5" type="determinate" style="--progress-background: #2AA10F" value="{{this.skillLevelTechnologie.level / 5}}"></ion-progress-bar>
+    <ion-progress-bar *ngIf="skillLevelTechnologie.level == 0" type="determinate" style="--progress-background: #DE3700" value="{{this.skillLevelTechnologie.level / 4}}"></ion-progress-bar>
+    <ion-progress-bar *ngIf="skillLevelTechnologie.level == 1" type="determinate" style="--progress-background: #DE3700" value="{{this.skillLevelTechnologie.level / 4}}"></ion-progress-bar>
+    <ion-progress-bar *ngIf="skillLevelTechnologie.level == 2" type="determinate" style="--progress-background: #F58B00" value="{{this.skillLevelTechnologie.level / 4}}"></ion-progress-bar>
+    <ion-progress-bar *ngIf="skillLevelTechnologie.level == 3" type="determinate" style="--progress-background: yellow" value="{{this.skillLevelTechnologie.level / 4}}"></ion-progress-bar>
+    <ion-progress-bar *ngIf="skillLevelTechnologie.level == 4" type="determinate" style="--progress-background: #92E000" value="{{this.skillLevelTechnologie.level / 4}}"></ion-progress-bar>
     <h3>{{this.skillLevelTechnologie.title}}</h3>
-    <p>{{this.skillLevelTechnologie.text}}</p>
+    <p>{{this.skillLevelTechnologie.text.split("Verbesserungsvorschlag:")[0]}}</p>
+    <b>Verbesserungsvorschlag:</b>
+    <p>{{this.skillLevelTechnologie.text.split("Verbesserungsvorschlag:")[1]}}</p>
   </div>
   <hr>
 
   <!-- Organisation Reifegrad -->
   <div *ngIf="this.skillLevelOrganisation">
     <h1>Organisation: {{this.skillLevelOrganisation.level}}/{{this.reifegradeOrganisation.length-1}}</h1>
+    <ion-progress-bar *ngIf="skillLevelOrganisation.level == 0" type="determinate" style="--progress-background: #DE3700" value="{{this.skillLevelOrganisation.level / 5}}"></ion-progress-bar>
     <ion-progress-bar *ngIf="skillLevelOrganisation.level == 1" type="determinate" style="--progress-background: #DE3700" value="{{this.skillLevelOrganisation.level / 5}}"></ion-progress-bar>
     <ion-progress-bar *ngIf="skillLevelOrganisation.level == 2" type="determinate" style="--progress-background: #F58B00" value="{{this.skillLevelOrganisation.level / 5}}"></ion-progress-bar>
     <ion-progress-bar *ngIf="skillLevelOrganisation.level == 3" type="determinate" style="--progress-background: yellow" value="{{this.skillLevelOrganisation.level / 5}}"></ion-progress-bar>
     <ion-progress-bar *ngIf="skillLevelOrganisation.level == 4" type="determinate" style="--progress-background: #92E000" value="{{this.skillLevelOrganisation.level / 5}}"></ion-progress-bar>
     <ion-progress-bar *ngIf="skillLevelOrganisation.level == 5" type="determinate" style="--progress-background: #2AA10F" value="{{this.skillLevelOrganisation.level / 5}}"></ion-progress-bar>
     <h3>{{this.skillLevelOrganisation.title}}</h3>
-    <p>{{this.skillLevelOrganisation.text}}</p>
+    <p>{{this.skillLevelOrganisation.text.split("Verbesserungsvorschlag:")[0]}}</p>
+    <b>Verbesserungsvorschlag:</b>
+    <p>{{this.skillLevelOrganisation.text.split("Verbesserungsvorschlag:")[1]}}</p>
   </div>
   <hr>
   <!-- TODO: Reifegrad Prozesse -->
@@ -61,13 +69,12 @@
     <div *ngIf="question.type === 0"> <!-- Multiple Choice Question -->
       <div *ngFor="let answer of question.answers">
         <div *ngIf="answer.checked">
-          {{answer.title}} - Punkte: {{answer.points}}
+          {{answer.title}}
         </div>
       </div>
     </div>
     <div *ngIf="question.type === 1"> <!-- Single Choice Question -->
-      <div>{{question.answers[question.singleChoiceAnswer? question.singleChoiceAnswer : 0].title}}
-        - Punkte: {{question.answers[question.singleChoiceAnswer? question.singleChoiceAnswer : 0].points}}</div>
+      <div>{{question.answers[question.singleChoiceAnswer? question.singleChoiceAnswer : 0].title}}</div>
     </div>
   </div>
   <br>

@@ -102,10 +102,12 @@ export class QuestionsComponent implements OnInit {
       }
     }
     const questionCatalogue: (MultipleChoiceQuestion | SingleChoiceQuestion)[][] = [processQuestions, technologyQuestions, organisationQuestions];
+    /*
     console.log("num all quesitons:", processQuestions.length + technologyQuestions.length + organisationQuestions.length);
     console.log("num process questions:", processQuestions.length);
     console.log("num technology questions:", technologyQuestions.length);
     console.log("num organisation questions:", organisationQuestions.length);
+    */
 
     // Lösung mit 1 Gruppe pro Seite - group Position mit questionCatalogue
     for (const question of questionCatalogue[this.groupPosition]) {

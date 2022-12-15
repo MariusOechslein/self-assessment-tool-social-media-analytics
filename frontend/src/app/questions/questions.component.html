@@ -47,8 +47,8 @@
   -->
   <ion-button (click)="getPreviousQuestions()" disabled="{{this.groupPosition == 0}}">Zurück</ion-button>
   <ion-button (click)="getNextQuestions()" *ngIf="(this.groupPosition < 2)">Weiter</ion-button>
-  <ion-button routerLink="/results-easy" *ngIf="this.router.url.includes('easy') && this.pageNumber+1 >= this.questions.length / this.questionsPerPage">Zur Auswertung</ion-button>
-  <ion-button routerLink="/results-hard" *ngIf="this.router.url.includes('hard') && this.pageNumber+1 >= this.questions.length / this.questionsPerPage">Zur Auswertung</ion-button>
+  <ion-button routerLink="/results-easy" *ngIf="this.router.url.includes('easy') && this.pageNumber == 2">Zur Auswertung</ion-button>
+  <ion-button routerLink="/results-hard" *ngIf="this.router.url.includes('hard') && this.pageNumber == 2">Zur Auswertung</ion-button>
 </div>
 <br>
 <br>
